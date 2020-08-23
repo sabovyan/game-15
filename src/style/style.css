@@ -1,0 +1,41 @@
+:root {
+	--board-size: 500px;
+	--cell-size: calc(var(--board-size) / 4);
+	--prim-bg-color: #242424;
+	--sec-bg-color: #efefef;
+	--text-color: #efefef;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+.game__board {
+	width: var(--board-size);
+	height: var(--board-size);
+	margin: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid var(--prim-bg-color);
+}
+.game__cell {
+	width: calc(var(--cell-size) - 1px);
+	height: var(--cell-size);
+	line-height: var(--cell-size);
+	text-align: center;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-weight: 700;
+	font-size: 2rem;
+	color: var(--text-color);
+	background-color: var(--prim-bg-color);
+	border: 1px solid var(--text-color);
+	border-radius: 8px;
+	cursor: pointer;
+}
+.game__cell--empty {
+	background-color: var(--sec-bg-color);
+	cursor: initial;
+}

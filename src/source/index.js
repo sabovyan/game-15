@@ -6,3 +6,11 @@ const root = document.querySelector('#root');
 const state = {
 	shuffledArray: makeShuffledArray(16),
 };
+
+const render = () => {
+	root.innerHTML = '';
+	const gameBoard = createBoard(state.shuffledArray);
+	root.append(gameBoard);
+};
+
+render();
