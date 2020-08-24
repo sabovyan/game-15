@@ -26,6 +26,10 @@ export function makeOrderedArray(limit) {
  * state.gameArray = makeShuffledArray(state.orderedArray )
  */
 export function makeShuffledArray(orderedArray) {
-	const res = orderedArray.sort(() => Math.random() - 0.5);
+	const res = orderedArray;
+	for (let i = orderedArray.length - 1; i > 0; i -= 1) {
+		const random = Math.floor(Math.random() * (i + 1));
+		[res[i], res[random]] = [res[random], res[i]];
+	}
 	return res;
 }
