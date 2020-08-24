@@ -1,7 +1,7 @@
 /**
  *  @description this function is responsible for creating board and its cells
  * @param {Array} inputtedArray
- * @returns {HTMLElement} that contains all the cells
+ * @returns {HTMLElement} an html element that contains all the cells
  * @example 
  * const gameBoard = createBoard(state.gameArray);
 	root.append(gameBoard);
@@ -41,7 +41,7 @@ export function getArrangedArray(step, arrayOfCellsValue, idx) {
 /**
  * @description hasWon function checks whether two arrays has the same order of values
  * @param {object} param0 takes two arrays of state object
- * @returns {boolean} true if they both have the same object, otherwise false
+ * @returns {boolean} true if they both have the same order, otherwise false
  * @example
  * hasWon(state)
  */
