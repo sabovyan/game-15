@@ -9,6 +9,7 @@ const root = document.querySelector('#root');
 const messageBox = document.querySelector('.game__outer-box');
 const acceptButton = document.querySelector('.game__accept');
 const rejectButton = document.querySelector('.game__reject');
+const gameTimer = document.querySelector('.game__timer');
 
 /**
  * @description keeps current state of the the arrays
@@ -22,6 +23,7 @@ const state = {
 	gameArray: makeShuffledArray(makeOrderedArray(16)),
 };
 
+console.log(state.orderedArray);
 /**
  * @typedef {object} dir keeps the sizes of the steps towards each direction
  * @property {number} left
@@ -35,6 +37,12 @@ const dir = {
 	top: -4,
 	bottom: 4,
 };
+
+let timer = 0;
+const intervalId = setInterval(() => {
+	timer += 1;
+	gameTimer.textContent = `${timer}s`;
+}, 1000);
 
 const render = () => {
 	root.innerHTML = '';
@@ -94,6 +102,7 @@ const render = () => {
 	});
 	if (hasWon(state)) {
 		messageBox.style.display = 'flex';
+		clearInterval(intervalId);
 	}
 };
 
