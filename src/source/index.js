@@ -12,8 +12,8 @@ const rejectButton = document.querySelector('.game__reject');
 
 const state = {
 	orderedArray: makeOrderedArray(16),
-	// gameArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 'empty', 15],
-	gameArray: makeShuffledArray(makeOrderedArray(16)),
+	gameArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 'empty', 15],
+	// gameArray: makeShuffledArray(makeOrderedArray(16)),
 };
 
 const dir = {
@@ -47,14 +47,12 @@ const render = () => {
 			let top = null;
 			let bottom = null;
 			if (!(idx >= 0 && idx < 4)) {
-				/* TODO must be refactored */
 				top =
 					currentCell.previousSibling.previousSibling.previousSibling
 						.previousSibling;
 			}
 
 			if (!(idx <= 15 && idx > 12)) {
-				/* TODO must be refactored */
 				bottom = currentCell.nextSibling.nextSibling.nextSibling.nextSibling;
 			}
 
@@ -79,11 +77,11 @@ const render = () => {
 			}
 
 			render();
-			if (hasWon(state)) {
-				messageBox.style.display = 'flex';
-			}
 		});
 	});
+	if (hasWon(state)) {
+		messageBox.style.display = 'flex';
+	}
 };
 
 render();
@@ -94,4 +92,52 @@ acceptButton.addEventListener('click', () => {
 rejectButton.addEventListener('click', () => {
 	messageBox.innerHTML = '🤔 ...';
 	messageBox.style.fontSize = '2rem';
+});
+
+window.addEventListener('keydown', (event) => {
+	const empty = document.querySelector('game__cell--empty');
+	const arrayFromCells = Array.from(state.cells).map((cell) => {
+		if (cell.classList.contains('game__cell--empty')) {
+			return 'empty';
+		}
+		return cell.textContent;
+	});
+
+	let indexOfEmpty = arrayFromCells.indexOf('empty');
+	if (event.key === 'ArrowRight') {
+		if (!((indexOfEmpty + 1) % 4 === 0)) {
+			state.gameArray = getArrangedArray(
+				dir.left,
+				arrayFromCells,
+				indexOfEmpty
+			);
+			console.log(indexOfEmpty);
+		}
+	}
+	if (event.key === 'ArrowLeft') {
+		if (!(indexOfEmpty % 4 === 0)) {
+			state.gameArray = getArrangedArray(
+				dir.right,
+				arrayFromCells,
+				indexOfEmpty
+			);
+		}
+	}
+	if (event.key === 'ArrowUp') {
+		if (!(indexOfEmpty >= 0 && indexOfEmpty < 4)) {
+			state.gameArray = getArrangedArray(dir.top, arrayFromCells, indexOfEmpty);
+		}
+	}
+
+	if (event.key === 'ArrowDown') {
+		if (!(indexOfEmpty >= 12 && indexOfEmpty < 16)) {
+			state.gameArray = getArrangedArray(
+				dir.bottom,
+				arrayFromCells,
+				indexOfEmpty
+			);
+		}
+	}
+
+	render();
 });

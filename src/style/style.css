@@ -1,10 +1,10 @@
 :root {
 	--board-size: 400px;
 	--cell-size: calc(var(--board-size) / 4);
-	--prim-bg-color: #242424;
+	--prim-bg-color: #353535;
 	--sec-bg-color: #efefef;
 	--text-color: #efefef;
-	--hover-color: #0a0a0a;
+	--hover-color: #1d1d1d;
 }
 
 * {
@@ -93,4 +93,8 @@
 .game__cell--empty {
 	background-color: var(--sec-bg-color);
 	cursor: initial;
+}
+
+.game__cell:hover:not(.game__cell--empty) {
+	background-color: var(--hover-color);
 }
