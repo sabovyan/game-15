@@ -6,11 +6,14 @@ import {
 } from './helper/render.helper.js';
 
 const root = document.querySelector('#root');
+const messageBox = document.querySelector('.game__outer-box');
+const acceptButton = document.querySelector('.game__accept');
+const rejectButton = document.querySelector('.game__reject');
 
 const state = {
 	orderedArray: makeOrderedArray(16),
-	gameArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 'empty', 15],
-	// gameArray: makeShuffledArray(makeOrderedArray(16)),
+	// gameArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 'empty', 15],
+	gameArray: makeShuffledArray(makeOrderedArray(16)),
 };
 
 const dir = {
@@ -77,9 +80,18 @@ const render = () => {
 
 			render();
 			if (hasWon(state)) {
+				messageBox.style.display = 'flex';
 			}
 		});
 	});
 };
 
 render();
+
+acceptButton.addEventListener('click', () => {
+	window.location.reload();
+});
+rejectButton.addEventListener('click', () => {
+	messageBox.innerHTML = '🤔 ...';
+	messageBox.style.fontSize = '2rem';
+});
