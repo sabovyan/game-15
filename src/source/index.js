@@ -1,14 +1,18 @@
-import { makeShuffledArray } from './helper/array.helper.js';
-import { createBoard, getArrangedArray } from './helper/render.helper.js';
+import { makeShuffledArray, makeOrderedArray } from './helper/array.helper.js';
+import {
+	createBoard,
+	getArrangedArray,
+	hasWon,
+} from './helper/render.helper.js';
 
 const root = document.querySelector('#root');
 
-const VERTICAL_STEP = 4;
-const HORIZONTAL_STEP = 1;
-
 const state = {
-	gameArray: makeShuffledArray(16),
+	orderedArray: makeOrderedArray(16),
+	gameArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 'empty', 15],
+	// gameArray: makeShuffledArray(makeOrderedArray(16)),
 };
+
 const dir = {
 	left: 1,
 	right: -1,
@@ -32,29 +36,32 @@ const render = () => {
 	state.cells.forEach((cell, idx) => {
 		cell.addEventListener('click', (e) => {
 			const empty = document.querySelector('.game__cell--empty');
+
 			const currentCell = e.target;
+			const right = currentCell.nextSibling;
+			const left = currentCell.previousSibling;
 
 			let top = null;
 			let bottom = null;
 			if (!(idx >= 0 && idx < 4)) {
+				/* TODO must be refactored */
 				top =
 					currentCell.previousSibling.previousSibling.previousSibling
 						.previousSibling;
 			}
+
 			if (!(idx <= 15 && idx > 12)) {
+				/* TODO must be refactored */
 				bottom = currentCell.nextSibling.nextSibling.nextSibling.nextSibling;
 			}
 
-			const next = currentCell.nextSibling;
-			const previous = currentCell.previousSibling;
-
-			if (next === empty) {
+			if (right === empty) {
 				if (!((idx + 1) % 4 === 0)) {
 					state.gameArray = getArrangedArray(dir.left, arrayFromCells, idx);
 				}
 			}
 
-			if (previous === empty) {
+			if (left === empty) {
 				if (!(idx % 4 === 0)) {
 					state.gameArray = getArrangedArray(dir.right, arrayFromCells, idx);
 				}
@@ -69,6 +76,8 @@ const render = () => {
 			}
 
 			render();
+			if (hasWon(state)) {
+			}
 		});
 	});
 };

@@ -1,4 +1,4 @@
-export function makeShuffledArray(number) {
+export function makeOrderedArray(number) {
 	const orderedArray = [];
 
 	for (let i = 0; i < number; i += 1) {
@@ -8,6 +8,10 @@ export function makeShuffledArray(number) {
 			orderedArray[i] = i + 1;
 		}
 	}
+	return orderedArray;
+}
+
+export function makeShuffledArray(orderedArray) {
 	const res = orderedArray.sort(() => Math.random() - 0.5);
 	return res;
 }

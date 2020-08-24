@@ -20,3 +20,13 @@ export function getArrangedArray(step, arrayOfCellsValue, idx) {
 	[res[idx], res[idx + step]] = [res[idx + step], res[idx]];
 	return res;
 }
+
+export function hasWon({ gameArray, orderedArray }) {
+	for (let i = 0; i < orderedArray.length; i += 1) {
+		if (gameArray[i] !== String(orderedArray[i])) {
+			return false;
+		}
+	}
+
+	return true;
+}
