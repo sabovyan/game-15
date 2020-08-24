@@ -4,7 +4,7 @@ export function createBoard(inputtedArray) {
 
 	inputtedArray.forEach((elem) => {
 		let cell;
-		if (elem === null) {
+		if (elem === 'empty') {
 			cell = '<div class="game__cell game__cell--empty"></div>';
 		} else {
 			cell = `<div class="game__cell">${elem}</div>`;
@@ -13,4 +13,10 @@ export function createBoard(inputtedArray) {
 	});
 
 	return board;
+}
+
+export function getArrangedArray(step, arrayOfCellsValue, idx) {
+	const res = arrayOfCellsValue;
+	[res[idx], res[idx + step]] = [res[idx + step], res[idx]];
+	return res;
 }

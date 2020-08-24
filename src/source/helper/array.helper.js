@@ -3,7 +3,7 @@ export function makeShuffledArray(number) {
 
 	for (let i = 0; i < number; i += 1) {
 		if (i === number - 1) {
-			orderedArray[i] = null;
+			orderedArray[i] = 'empty';
 		} else {
 			orderedArray[i] = i + 1;
 		}
