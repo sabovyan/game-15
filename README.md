@@ -1,6 +1,10 @@
 # 15 game
 
+<<<<<<< HEAD
 > _It is a one-page project and was created using pure JavaScript._
+=======
+> _It is an one-page project and was created using pure JavaScript._
+>>>>>>> 2a3bc14c36e288c153f7cc0750c37941dc9577ba
 
 ## Stack
 
