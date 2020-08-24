@@ -10,12 +10,25 @@ const messageBox = document.querySelector('.game__outer-box');
 const acceptButton = document.querySelector('.game__accept');
 const rejectButton = document.querySelector('.game__reject');
 
+/**
+ * @description keeps current state of the the arrays
+ * @typedef {object} state
+ * @property {array} orderedArray represents the original order of the array
+ * @property {array} gameArray current state of the array that is used for creation of the cells
+ * @property {HTMLCollection} cells keeps current order of the html elements from the board
+ */
 const state = {
 	orderedArray: makeOrderedArray(16),
-	gameArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 'empty', 15],
-	// gameArray: makeShuffledArray(makeOrderedArray(16)),
+	gameArray: makeShuffledArray(makeOrderedArray(16)),
 };
 
+/**
+ * @typedef {object} dir keeps the sizes of the steps towards each direction
+ * @property {number} left
+ * @property {number} right
+ * @property {number} top
+ * @property {number} bottom
+ */
 const dir = {
 	left: 1,
 	right: -1,
@@ -95,7 +108,6 @@ rejectButton.addEventListener('click', () => {
 });
 
 window.addEventListener('keydown', (event) => {
-	const empty = document.querySelector('game__cell--empty');
 	const arrayFromCells = Array.from(state.cells).map((cell) => {
 		if (cell.classList.contains('game__cell--empty')) {
 			return 'empty';
@@ -103,7 +115,7 @@ window.addEventListener('keydown', (event) => {
 		return cell.textContent;
 	});
 
-	let indexOfEmpty = arrayFromCells.indexOf('empty');
+	const indexOfEmpty = arrayFromCells.indexOf('empty');
 	if (event.key === 'ArrowRight') {
 		if (!((indexOfEmpty + 1) % 4 === 0)) {
 			state.gameArray = getArrangedArray(
@@ -111,7 +123,6 @@ window.addEventListener('keydown', (event) => {
 				arrayFromCells,
 				indexOfEmpty
 			);
-			console.log(indexOfEmpty);
 		}
 	}
 	if (event.key === 'ArrowLeft') {
